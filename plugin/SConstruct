@@ -174,14 +174,23 @@ else:
     ])
 
 # tweak this if you want to use different folders, or more folders, to store your source code in.
-sources = Glob('plugin/' + env['plugin'] + '/*.mm')
+# sources = Glob('plugin/' + env['plugin'] + '/*.mm')
 # sources.append(Glob('plugin/' + env['plugin'] + '/*.mm'))
 # sources.append(Glob('plugin/' + env['plugin'] + '/*.m'))
 
+sources = Glob('plugin/flashlight/*.cpp')
+sources.append(Glob('plugin/flashlight/*.mm'))
+sources.append(Glob('plugin/flashlight/*.m'))
+
 # lib<plugin>.<arch>-<simulator|ios>.<release|debug|release_debug>.a
-library_platform = env["arch"] + "-" + ("simulator" if env["simulator"] else ("iphone" if env['version'] == '3.x' else "ios"))
+# library_platform = env["arch"] + "-" + ("simulator" if env["simulator"] else ("iphone" if env['version'] == '3.x' else "ios"))
+# library_name = env['plugin'] + "." + library_platform + "." + env["target"] + ".a"
+# library = env.StaticLibrary(target=env['target_path'] + library_name, source=sources)
+
+library_platform = env["arch"] + "-" + ("simulator" if env["simulator"] else "iphone")
 library_name = env['plugin'] + "." + library_platform + "." + env["target"] + ".a"
 library = env.StaticLibrary(target=env['target_path'] + library_name, source=sources)
+
 
 Default(library)
 
